@@ -1,0 +1,40 @@
+services:
+  db:
+    image: mariadb:10.4
+    container_name: teste_db
+    environment:
+      MARIADB_DATABASE: financeiro
+      MARIADB_USER: app
+      MARIADB_PASSWORD: app
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/01-database.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -proot || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    ports:
+      - "3306:3306"
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: teste_app
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_USER: app
+      DB_PASS: app
+      DB_NAME: financeiro
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  dbdata:
