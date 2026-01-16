@@ -6,10 +6,6 @@ Sistema web para gerenciamento de lançamentos financeiros (créditos e débitos
 
 Aplicação desenvolvida em PHP puro com MySQL, utilizando jQuery e Bootstrap para o frontend. O sistema permite cadastrar, listar e excluir lançamentos financeiros, com validação automática de saldo negativo.
 
-O teste pode ser temporariamente acessado sem a necessidade de instalação em 
-[Demonstração online](https://yessenia-practical-rosalinda.ngrok-free.dev/www/teste-dev-acessorias/)
-
-
 ## Tecnologias Utilizadas
 
 - **Backend:** PHP 8.2+ (MySQLi, BCMath)
